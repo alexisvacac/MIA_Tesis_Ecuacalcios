@@ -1,68 +1,43 @@
-# Modelo Predictivo de Demanda basado en IA - Ecuacalcios S.A.
+# Ecuacalcios_Inventory_Forecasting 🚀
 
-Este repositorio contiene el desarrollo técnico y los modelos de Inteligencia Artificial diseñados para optimizar la gestión de inventarios y reducir el riesgo operativo en la empresa Ecuacalcios S.A. El proyecto implementa un enfoque de **Ensamble Estacional Híbrido** utilizando el algoritmo XGBoost junto con una capa de planificación de ventas y operaciones (S&OP)
+Este repositorio contiene el desarrollo e implementación de un modelo de **Inteligencia Artificial Pura** diseñado para optimizar la gestión de inventarios y reducir el riesgo operativo en la empresa **Ecuacalcios S.A.**. 
 
-## 📝 Descripción del Problema y Solución
+El proyecto transforma datos históricos y variables externas en decisiones estratégicas, permitiendo una transición de una cultura reactiva a una **gestión proactiva basada en evidencia**.
 
-### Problema
-Ecuacalcios S.A. enfrentaba una gestión empírica de suministros, vulnerable a sesgos subjetivos y errores humanos, lo que derivaba en sobrestock de capital inmovilizado o quiebres de stock recurrentes 
-Factores externos como la volatilidad del precio de la urea y las precipitaciones climáticas no eran procesados matemáticamente en la planificación tradicional
+## 📌 Características Principales
+* **Algoritmo Core:** Implementación de **XGBoost** (Extreme Gradient Boosting) para regresión multivariante.
+* **Variables Exógenas:** Integración de niveles de precipitación (FONAG), precio internacional de la urea e indicadores de disrupción socioeconómica (paros nacionales).
+* **Ingeniería de Características:** Generación de **Lags** (rezagos temporales), medias móviles y ventanas temporales para capturar la estacionalidad profunda.
+* **Explicabilidad (XAI):** Uso de la Teoría de Juegos mediante valores **SHAP** para auditar cada predicción y eliminar el efecto "caja negra".
+* **Inferencia Autónoma:** Generación automática del Plan Maestro de Inventarios 2026 sin intervención manual.
 
-### Solución
-Se desarrolló un sistema predictivo **Full Code** que estandariza los registros históricos de ventas (2018-2025) a unidades logísticas de sacos de 50 kg e integra variables exógenas determinantes. El núcleo de la solución es un modelo **XGBoost** (Extreme Gradient Boosting) optimizado para penalizar desviaciones críticas en meses de alta rotación.
+## 🛠️ Stack Tecnológico
+* **Lenguaje:** Python 3.12
+* **Entorno:** Google Colab (Infraestructura Cloud)
+* **Librerías Clave:**
+    * `xgboost`: Motor principal de aprendizaje supervisado.
+    * `shap`: Interpretabilidad técnica del modelo.
+    * `pandas` & `numpy`: Procesamiento ETL y manipulación estructural.
+    * `scikit-learn`: Preprocesamiento, validación cruzada temporal y métricas.
 
-## 🛠️ Requisitos Técnicos y Dependencias
+## 📈 Resultados y Validación
+El prototipo fue validado con la venta real del primer trimestre (Q1) de 2026, demostrando alta robustez en entornos de variabilidad agrícola:
 
-La solución fue desarrollada íntegramente en **Python 3.12.12** y está diseñada para ejecutarse en entornos locales o en la nube (**Google Colab**).
+* **Caldolomita:** WMAPE de **22.54%** (Precisión del 77.46%).
+* **Carbonato de Calcio:** WMAPE de **39.62%**.
+* **Sulfato de Calcio:** WMAPE de **40.24%**.
 
-### Librerías Necesarias:
-* `xgboost`: Motor principal de aprendizaje supervisado.
-* `pandas` & `numpy`: Manipulación y limpieza de series de tiempo.
-* `scikit-learn`: Preprocesamiento, validación cruzada temporal y métricas.
-* `shap`: Capa de explicabilidad (XAI) para la toma de decisiones gerenciales.
-* `joblib`: Serialización y persistencia de los modelos entrenados.
-* `matplotlib` & `seaborn`: Visualización de resultados y análisis de sensibilidad.
+**Impacto Empresarial:** Se proyecta una optimización del capital de trabajo de **$37,144.19 USD anuales** para el portafolio estratégico.
 
-## 🚀 Instrucciones de Ejecución Paso a Paso
+## ⚙️ Metodología
+El desarrollo se estructuró bajo el estándar internacional **CRISP-DM**:
+1. **Comprensión del Negocio:** Análisis de sobrestock y quiebres de inventario.
+2. **Preparación de Datos:** Pipeline ETL con estandarización estricta a unidades de sacos de 50kg.
+3. **Modelado y Optimización:** Ajuste de hiperparámetros mediante `GridSearchCV` y validación temporal.
+4. **Evaluación de Robustez:** Pruebas de estrés ante escenarios de sequía e inflación de insumos.
 
-1. **Preparación del Entorno:**
-   * Clone este repositorio o abra el notebook en **Google Colab**.
-   * Asegúrese de tener instaladas las dependencias: `pip install -r requirements.txt`.
-
-2. **Carga de Información:**
-   * Coloque los archivos de facturación histórica y los datasets de variables exógenas (Urea y Clima) en la carpeta `/data`.
-
-3. **Ejecución del Pipeline:**
-   * Ejecute el script principal o notebook. El sistema realizará automáticamente la ingesta (ETL), el entrenamiento y la generación de proyecciones.
-
-4. **Consumo de Resultados:**
-   * Consulte la carpeta `/resultados` para obtener el archivo `dataset_depurado_top3.csv` y las gráficas de proyección anual para el periodo 2026.
-
-## ⚙️ Explicación General del Pipeline
-
-El flujo de procesamiento técnico se divide en cuatro fases principales:
-
-1. **Fase 1: ETL e Ingesta:** Automatización de lectura de datos heterogéneos y normalización de unidades de masa a sacos de 50 kg.
-2. **Fase 2: Feature Engineering:** Creación de componentes de memoria temporal (Lags 1, 2, 12) y suavizado de tendencias mediante medias móviles y EWMA.
-3. **Fase 3: Modelado y Optimización:** Entrenamiento del algoritmo XGBoost con ajuste de hiperparámetros (*fine-tuning*) y validación por partición temporal para evitar sobreajuste.
-4. **Fase 4: Plan Maestro S&OP:** Integración de la salida algorítmica con pesos históricos y multiplicadores comerciales (*Uplifts*) para generar la proyección final de 2026.
-
-## 📈 Resultados y Control de Versiones
-
-* **Versión Actual:** V1.6 (Producción).
-* **Fecha de Última Actualización:** 29/03/2026.
-* **Exactitud Alcanzada (Enero 2026):**
-  * ]Sulfato de Calcio: 97.4%.
-  * Carbonato de Calcio: 89.9%.
-  * Caldolomita: 97.4%.
-
-## 📂 Organización del Repositorio
-
-* `/data`: Fuentes internas de ventas y variables externas (clima/economía).
-* `/notebooks`: Experimentos, análisis exploratorio (EDA) y entrenamiento.
-* `/src`: Código fuente para la ejecución del pipeline y funciones de ajuste S&OP.
-* `/models`: Archivos binarios `.pkl` con los modelos serializados listos para uso.
-* `/resultados`: Reportes gerenciales, archivos `.csv` depurados y visualizaciones SHAP.
+## 👨‍💻 Autores
+**Edwin Alexis Vaca Cóndor y Lizbeth Alejandra Suárez Minchala** *Maestría en Inteligencia Artificial Aplicada - UDLA*
 
 ---
-**Nota:** Este proyecto se basa en la metodología CRISP-DM y cumple con los estándares de calidad ISO/IEC 25010.
+*Este proyecto cumple con las políticas de confidencialidad de Ecuacalcios S.A. y los principios éticos de anonimización de datos sensibles.*
